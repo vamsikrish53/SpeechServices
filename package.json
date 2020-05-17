@@ -24,8 +24,10 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@types/gapi": "0.0.39",
     "core-js": "^2.5.4",
     "microsoft-cognitiveservices-speech-sdk": "^1.11.0",
+    "recorder-js": "^1.0.7",
     "rxjs": "~6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

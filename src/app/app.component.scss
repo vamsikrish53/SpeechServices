@@ -1,58 +1,33 @@
-.main {
-    margin: 0 auto;
-    width: 50%;
-}
-
-.textarea {
-    padding: 13px 15px;
-    border-radius: 8px;
-    border: 2px solid #1a73e8;
-    outline: 0;
-    width: 100%;
-}
-
-.mic-icon {
-    position: relative;
+.nav {
     display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    
-}
+    min-height: 56px;
+    background: #4c96d3;
+    align-items: center;
+  }
 
-.mic-icon fa-icon {
-    font-size: 40px;
+  .left {
+    font-size: 20px;
+    font-weight: 600;
+    flex-basis: 40%;
     padding: 10px;
-    cursor: pointer;
-    z-index: 1;
-}
+  }
+  .middle {
+    font-size: 20px;
+    font-weight: 600;
+  }
 
-.icon-listening {
-    color: red;
-}
+  a:hover {
+      cursor: pointer;
+      background-color: #bbdefb;
+  }
 
-// .mic-icon fa-icon:hover {
-//     background-color: #d4d4ff;
-//     border-radius: 50%;
-// }
+  .item {
+    font-size: 20px;
+    padding: 16px;
+    display: inline-block;
+  }
 
-.pulse-ring {
-    position: absolute;
-    top: 4px;
-    content: "";
-    width: 50px;
-    height: 50px;
-    border: 5px solid #d4d4ff;
-    border-radius: 50%;
-    animation: pulsate infinite 2s;
-}
-
-@keyframes pulsate {
-    0% {
-        transform: scale(1, 1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1.2, 1.2);
-        opacity: 0;
-    }
-}
+  a {
+    text-decoration: none;
+    color: black;
+  }

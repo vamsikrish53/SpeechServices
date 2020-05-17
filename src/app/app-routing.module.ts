@@ -1,10 +1,23 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AzureSpeechToTextComponent } from './azure-speech-to-text/azure-speech-to-text.component';
+import { GoogleSpeechToTextComponent } from './google-speech-to-text/google-speech-to-text.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'azure',
+    component: AzureSpeechToTextComponent
+  },
 
+  {
+    path: 'google',
+    component: GoogleSpeechToTextComponent
+  },
+];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

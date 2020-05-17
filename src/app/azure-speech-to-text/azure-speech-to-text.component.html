@@ -1,0 +1,13 @@
+<div style="text-align:center">
+    <h1>
+      Azure speech to text using Angular
+    </h1>
+  </div>
+  
+  <div class="main">
+    <textarea [(ngModel)]='textOutput' class="textarea" rows="6" placeholder="Start speaking by clicking on the mic icon"></textarea>
+    <div class="mic-icon" >
+      <fa-icon icon="microphone" [class.icon-listening]="recognizing" title="{{tooltip}}" (click)="listenToSpeech($event)"></fa-icon>
+      <div *ngIf="recognizing" class="pulse-ring"></div>
+    </div>
+  </div>

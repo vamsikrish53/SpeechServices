@@ -1,16 +1,12 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Azure speech to text using Angular
-  </h1>
+<div class="nav">
+    <div class="left">
+        Speech to Text App
+    </div>
+    <div class="middle">
+        <a [routerLink]="[ '/', 'azure' ]"class="item">AZURE</a>
+        <a [routerLink]="[ '/', 'google' ]" class="item">GOOGLE</a>
+    </div>
 </div>
 
-<div class="main">
-  <textarea [(ngModel)]='textOutput' class="textarea" rows="6" placeholder="Start speaking by clicking on the mic icon"></textarea>
-  <div class="mic-icon" >
-    <fa-icon icon="microphone" [class.icon-listening]="recognizing" title="{{tooltip}}" (click)="listenToSpeech($event)"></fa-icon>
-    <div *ngIf="recognizing" class="pulse-ring"></div>
-  </div>
-</div>
 
 <router-outlet></router-outlet>
