@@ -1,21 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer } from 'microsoft-cognitiveservices-speech-sdk';
+import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer, SpeechSynthesizer, SpeechSynthesisOutputFormat } from 'microsoft-cognitiveservices-speech-sdk';
 @Component({
   selector: 'app-azure-speech-to-text',
   templateUrl: './azure-speech-to-text.component.html',
   styleUrls: ['./azure-speech-to-text.component.scss']
 })
-export class AzureSpeechToTextComponent {
-
-  title = 'Speech To Text';
+export class AzureSpeechToTextComponent implements OnInit {
 
   recognizer: SpeechRecognizer;
-  textOutput;
-  private lastRecognized: string = '';
+  synthesizer: SpeechSynthesizer;
+  speechConfig: SpeechConfig;
+  soundContext: any;
+  text: string;
+  lastRecognized: string = '';
   recognizing: boolean = false;
   tooltip: string = "Start speech";
 
-  listenToSpeech(event) {
+  ngOnInit(): void {
+    this.speechConfig = SpeechConfig.fromSubscription("f7fbe62e52ef44cfb6d665fe4803196f", "westus");
+    try {
+      var AudioContext = window.AudioContext || false;
+      if (AudioContext) {
+        this.soundContext = new AudioContext();
+      } else {
+        alert("AudioContext not supported");
+      }
+    }
+    catch (e) {
+      console.log("no sound context found, no audio output. " + e);
+    }
+  }
+
+  speechToText(event) {
     if (this.recognizing) {
       this.tooltip = "Start speech";
       this.stop();
@@ -26,10 +42,9 @@ export class AzureSpeechToTextComponent {
       this.tooltip = "Stop speech";
       console.log("recording");
       const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
-      const speechConfig = SpeechConfig.fromSubscription("f7fbe62e52ef44cfb6d665fe4803196f", "westus");
-      speechConfig.speechRecognitionLanguage = 'en-US';
-      speechConfig.enableDictation();
-      this.recognizer = new SpeechRecognizer(speechConfig, audioConfig)
+      this.speechConfig.speechRecognitionLanguage = 'en-US';
+      this.speechConfig.enableDictation();
+      this.recognizer = new SpeechRecognizer(this.speechConfig, audioConfig)
       this.recognizer.recognizing = this.recognizer.recognized = this.recognizerCallback.bind(this)
       this.recognizer.startContinuousRecognitionAsync();
     }
@@ -40,11 +55,11 @@ export class AzureSpeechToTextComponent {
     const reason = ResultReason[e.result.reason];
     console.log("Reason :: " + reason);
     if (reason == "RecognizingSpeech" && e.result.text) {
-      this.textOutput = this.lastRecognized + e.result.text;
+      this.text = this.lastRecognized + e.result.text;
     }
     if (reason == "RecognizedSpeech" && e.result.text) {
       this.lastRecognized += e.result.text;
-      this.textOutput = this.lastRecognized;
+      this.text = this.lastRecognized;
     }
   }
 
@@ -62,5 +77,16 @@ export class AzureSpeechToTextComponent {
       console.log('stopped');
     }
   }
+
+  textToSpeech() {
+    this.speechConfig.speechSynthesisOutputFormat = SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
+    this.synthesizer = new SpeechSynthesizer(this.speechConfig, AudioConfig.fromSpeakerOutput());
+    this.synthesizer.speakTextAsync(this.text, (result) => {
+      this.synthesizer.close();
+    }, (error) => {
+      this.synthesizer.close();
+      window.alert(error);
+    });
+  };
 
 }

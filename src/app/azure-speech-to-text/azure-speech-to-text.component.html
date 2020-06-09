@@ -1,13 +1,19 @@
 <div style="text-align:center">
     <h1>
-      Azure speech to text using Angular
+      Azure speech to text and text to speech using Azure NPM module
     </h1>
   </div>
   
   <div class="main">
-    <textarea [(ngModel)]='textOutput' class="textarea" rows="6" placeholder="Start speaking by clicking on the mic icon"></textarea>
-    <div class="mic-icon" >
-      <fa-icon icon="microphone" [class.icon-listening]="recognizing" title="{{tooltip}}" (click)="listenToSpeech($event)"></fa-icon>
-      <div *ngIf="recognizing" class="pulse-ring"></div>
+    <textarea [(ngModel)]='text' class="textarea" rows="6" placeholder="Start speaking by clicking on the mic icon or Enter text and click Speak to listen to it"></textarea>
+    <div class="action-btns">
+      <div class="mic-icon" >
+        <fa-icon icon="microphone" [class.icon-listening]="recognizing" title="{{tooltip}}" (click)="speechToText($event)"></fa-icon>
+        <div *ngIf="recognizing" class="pulse-ring"></div>
+      </div>
+  
+      <div class="speak" >
+        <button (click)="textToSpeech()">Speak</button>
+      </div>
     </div>
   </div>

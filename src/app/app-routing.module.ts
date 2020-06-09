@@ -9,9 +9,15 @@ const routes: Routes = [
     component: AzureSpeechToTextComponent
   },
 
-  {
+  /*{
     path: 'google',
     component: GoogleSpeechToTextComponent
+  },*/
+
+  {
+    path: '',
+    redirectTo: 'azure',
+    pathMatch: 'full'
   },
 ];
 @NgModule({

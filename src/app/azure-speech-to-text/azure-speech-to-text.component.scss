@@ -14,9 +14,7 @@
 .mic-icon {
     position: relative;
     display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    
+    justify-content: center;   
 }
 
 .mic-icon fa-icon {
@@ -30,11 +28,14 @@
     color: red;
 }
 
-// .mic-icon fa-icon:hover {
-//     background-color: #d4d4ff;
-//     border-radius: 50%;
-// }
+.action-btns {
+    display: flex;
+    justify-content: space-evenly;
+}
 
+.speak {
+    margin-top: 25px;
+}
 .pulse-ring {
     position: absolute;
     top: 4px;
